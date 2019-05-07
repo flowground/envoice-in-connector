@@ -1,0 +1,1024 @@
+{
+    "title": "API v1.0.0",
+    "description": "[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/1d39bbcddaf694d81100)\r\n<span style='margin-left: 0.5em;'>or</span>\r\n<a href='https://documenter.getpostman.com/view/3559821/envoice-api/RW1XL1mf' class='openapi-button' _ngcontent-c6>View Postman docs</a>\r\n\r\n# Quickstart\r\n\r\nVisit [github](https://github.com/EmitKnowledge/Envoice) to view the quickstart tutorial.\r\n\r\n<div class='postman-tutorial'>\r\n\r\n# Tutorial for running the API in postman\r\n\r\nClick on \"\"Run in Postman\"\" button\r\n<br /><br />\r\n![postman - tutorial - 1](/Assets/images/api/postman-tutorial/postman-tutorial-1.png)\r\n\r\n --- \r\n\r\nA new page will open.\r\nClick the \"\"Postman for windows\"\" to run postman as a desktop app.\r\nMake sure you have already [installed](https://www.getpostman.com/docs/postman/launching_postman/installation_and_updates) Postman.\r\n<br /><br />\r\n![postman - tutorial - 2](/Assets/images/api/postman-tutorial/postman-tutorial-2.png)\r\n\r\n --- \r\n\r\nIn chrome an alert might show up to set a default app for opening postman links. Click on \"\"Open Postman\"\".\r\n<br /><br />\r\n![postman - tutorial - 3](/Assets/images/api/postman-tutorial/postman-tutorial-3.png)\r\n\r\n --- \r\n\r\nThe OpenAPI specification will be imported in Postman as a new collection named \"\"Envoice api\"\"\r\n<br /><br />\r\n![postman - tutorial - 4](/Assets/images/api/postman-tutorial/postman-tutorial-4.png)\r\n\r\n --- \r\n\r\nWhen testing be sure to check and modify the environment variables to suit your api key and secret. The domain is set to envoice's endpoint so you don't really need to change that.  \r\n<sub>\\*Eye button in top right corner </sub>\r\n<br /><br /> \r\n![postman - tutorial - 5](/Assets/images/api/postman-tutorial/postman-tutorial-5.png)\r\n<br /><br /> \r\n![postman - tutorial - 6](/Assets/images/api/postman-tutorial/postman-tutorial-6.png)\r\n\r\n --- \r\n\r\nYou don't need to change the values of the header parameters, because they will be replaced automatically when you send a request with real values from the environment configured in the previous step.\r\n<br /><br />\r\n![postman - tutorial - 7](/Assets/images/api/postman-tutorial/postman-tutorial-7.png)\r\n\r\n --- \r\n\r\nModify the example data to suit your needs and send a request.\r\n<br /><br />\r\n![postman - tutorial - 8](/Assets/images/api/postman-tutorial/postman-tutorial-8.png)\r\n</div>\r\n\r\n# Webhooks\r\n\r\nWebhooks allow you to build or set up Envoice Apps which subscribe to invoice activities. \r\nWhen one of those events is triggered, we'll send a HTTP POST payload to the webhook's configured URL. \r\nWebhooks can be used to update an external invoice data storage.\r\n\r\nIn order to use webhooks visit [this link](/account/settings#api-tab) and add upto 10 webhook urls that will return status `200` in order to signal that the webhook is working.\r\nAll nonworking webhooks will be ignored after a certain period of time and several retry attempts.\r\nIf after several attempts the webhook starts to work, we will send you all activities, both past and present, in chronological order.\r\n\r\nThe payload of the webhook is in format:\r\n```\r\n{\r\n    Signature: \"\"sha256 string\"\",\r\n    Timestamp: \"\"YYYY-MM-DDTHH:mm:ss.FFFFFFFZ\"\",\r\n    Activity: {\r\n        Message: \"string\",\r\n        Link: \"share url\",\r\n        Type: int,        \r\n        InvoiceNumber: \"string\",\r\n        InvoiceId: int,        \r\n        OrderNumber: \"string\",\r\n        OrderId: int,\r\n        Id: int,\r\n        CreatedOn: \"YYYY-MM-DDTHH:mm:ss.FFFFFFFZ\"\r\n    }\r\n}\r\n```            ",
+    "docsUrl": "",
+    "url": "https://api.apis.guru/v2/specs/envoice.in/v1/swagger.json",
+    "envVars": {},
+    "credentials": {
+        "fields": {
+            "server": {
+                "label": "Server",
+                "viewClass": "SelectView",
+                "model": [
+                    "https://www.envoice.in/",
+                    "--- Custom URL"
+                ],
+                "required": true
+            },
+            "otherServer": {
+                "label": "Custom Server URL",
+                "viewClass": "TextFieldView"
+            },
+            "x-auth-key": {
+                "label": "x-auth-key (x-auth-key)",
+                "viewClass": "TextFieldView",
+                "note": "Your account API key. Can be retrieved from your [account settings](/account/settings#api-tab)."
+            },
+            "x-auth-secret": {
+                "label": "x-auth-secret (x-auth-secret)",
+                "viewClass": "TextFieldView",
+                "note": "Your account API secret. Can be retrieved from your [account settings](/account/settings#api-tab). Keep it hidden."
+            }
+        }
+    },
+    "triggers": {
+        "startFlow": {
+            "main": "./lib/triggers/startFlow.js",
+            "type": "polling",
+            "title": "Start Flow",
+            "fields": {}
+        }
+    },
+    "actions": {
+        "ClientApi_All": {
+            "main": "./lib/actions/ClientApi_All.js",
+            "title": "Return all clients for the account",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/ClientApi_All.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "ClientApi_CanDelete": {
+            "main": "./lib/actions/ClientApi_CanDelete.js",
+            "title": "Check if the provided client can be deleted",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/ClientApi_CanDelete.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "ClientApi_Delete": {
+            "main": "./lib/actions/ClientApi_Delete.js",
+            "title": "Delete an existing client",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                },
+                "body_content_type": {
+                    "viewClass": "SelectView",
+                    "label": "Body Content-Type",
+                    "required": true,
+                    "prompt": "Choose a body Content-Type.",
+                    "model": {
+                        "application/json": "application/json",
+                        "text/json": "text/json",
+                        "text/html": "text/html",
+                        "application/xml": "application/xml",
+                        "text/xml": "text/xml",
+                        "application/x-www-form-urlencoded": "application/x-www-form-urlencoded"
+                    }
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/ClientApi_Delete.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "ClientApi_Details": {
+            "main": "./lib/actions/ClientApi_Details.js",
+            "title": "Return client details. Activities and invoices included.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/ClientApi_Details.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "ClientApi_New": {
+            "main": "./lib/actions/ClientApi_New.js",
+            "title": "Create a client",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                },
+                "body_content_type": {
+                    "viewClass": "SelectView",
+                    "label": "Body Content-Type",
+                    "required": true,
+                    "prompt": "Choose a body Content-Type.",
+                    "model": {
+                        "application/json": "application/json",
+                        "text/json": "text/json",
+                        "text/html": "text/html",
+                        "application/xml": "application/xml",
+                        "text/xml": "text/xml",
+                        "application/x-www-form-urlencoded": "application/x-www-form-urlencoded"
+                    }
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/ClientApi_New.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "ClientApi_Update": {
+            "main": "./lib/actions/ClientApi_Update.js",
+            "title": "Update an existing client",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                },
+                "body_content_type": {
+                    "viewClass": "SelectView",
+                    "label": "Body Content-Type",
+                    "required": true,
+                    "prompt": "Choose a body Content-Type.",
+                    "model": {
+                        "application/json": "application/json",
+                        "text/json": "text/json",
+                        "text/html": "text/html",
+                        "application/xml": "application/xml",
+                        "text/xml": "text/xml",
+                        "application/x-www-form-urlencoded": "application/x-www-form-urlencoded"
+                    }
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/ClientApi_Update.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "GeneralApi_Countries": {
+            "main": "./lib/actions/GeneralApi_Countries.js",
+            "title": "Return all of the platform supported countries",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/GeneralApi_Countries.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "GeneralApi_Currencies": {
+            "main": "./lib/actions/GeneralApi_Currencies.js",
+            "title": "Return all of the platform supported currencies",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/GeneralApi_Currencies.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "GeneralApi_DateFormats": {
+            "main": "./lib/actions/GeneralApi_DateFormats.js",
+            "title": "Return all of the platform supported Date Formats",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/GeneralApi_DateFormats.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "GeneralApi_UiLanguages": {
+            "main": "./lib/actions/GeneralApi_UiLanguages.js",
+            "title": "Return all of the platform supported UI languages",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/GeneralApi_UiLanguages.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "InvoiceApi_All": {
+            "main": "./lib/actions/InvoiceApi_All.js",
+            "title": "Return all invoices for the account",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/InvoiceApi_All.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "InvoiceApi_ChangeStatus": {
+            "main": "./lib/actions/InvoiceApi_ChangeStatus.js",
+            "title": "Change invoice status",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                },
+                "body_content_type": {
+                    "viewClass": "SelectView",
+                    "label": "Body Content-Type",
+                    "required": true,
+                    "prompt": "Choose a body Content-Type.",
+                    "model": {
+                        "application/json": "application/json",
+                        "text/json": "text/json",
+                        "text/html": "text/html",
+                        "application/xml": "application/xml",
+                        "text/xml": "text/xml",
+                        "application/x-www-form-urlencoded": "application/x-www-form-urlencoded"
+                    }
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/InvoiceApi_ChangeStatus.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "InvoiceApi_Delete": {
+            "main": "./lib/actions/InvoiceApi_Delete.js",
+            "title": "Delete an existing invoice",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                },
+                "body_content_type": {
+                    "viewClass": "SelectView",
+                    "label": "Body Content-Type",
+                    "required": true,
+                    "prompt": "Choose a body Content-Type.",
+                    "model": {
+                        "application/json": "application/json",
+                        "text/json": "text/json",
+                        "text/html": "text/html",
+                        "application/xml": "application/xml",
+                        "text/xml": "text/xml",
+                        "application/x-www-form-urlencoded": "application/x-www-form-urlencoded"
+                    }
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/InvoiceApi_Delete.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "InvoiceApi_Details": {
+            "main": "./lib/actions/InvoiceApi_Details.js",
+            "title": "Return invoice data",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/InvoiceApi_Details.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "InvoiceApi_New": {
+            "main": "./lib/actions/InvoiceApi_New.js",
+            "title": "Create an invoice",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                },
+                "body_content_type": {
+                    "viewClass": "SelectView",
+                    "label": "Body Content-Type",
+                    "required": true,
+                    "prompt": "Choose a body Content-Type.",
+                    "model": {
+                        "application/json": "application/json",
+                        "text/json": "text/json",
+                        "text/html": "text/html",
+                        "application/xml": "application/xml",
+                        "text/xml": "text/xml",
+                        "application/x-www-form-urlencoded": "application/x-www-form-urlencoded"
+                    }
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/InvoiceApi_New.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "InvoiceApi_SendToAccountant": {
+            "main": "./lib/actions/InvoiceApi_SendToAccountant.js",
+            "title": "Send the provided invoice to the accountant",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                },
+                "body_content_type": {
+                    "viewClass": "SelectView",
+                    "label": "Body Content-Type",
+                    "required": true,
+                    "prompt": "Choose a body Content-Type.",
+                    "model": {
+                        "application/json": "application/json",
+                        "text/json": "text/json",
+                        "text/html": "text/html",
+                        "application/xml": "application/xml",
+                        "text/xml": "text/xml",
+                        "application/x-www-form-urlencoded": "application/x-www-form-urlencoded"
+                    }
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/InvoiceApi_SendToAccountant.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "InvoiceApi_SendToClient": {
+            "main": "./lib/actions/InvoiceApi_SendToClient.js",
+            "title": "Send the provided invoice to the client",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                },
+                "body_content_type": {
+                    "viewClass": "SelectView",
+                    "label": "Body Content-Type",
+                    "required": true,
+                    "prompt": "Choose a body Content-Type.",
+                    "model": {
+                        "application/json": "application/json",
+                        "text/json": "text/json",
+                        "text/html": "text/html",
+                        "application/xml": "application/xml",
+                        "text/xml": "text/xml",
+                        "application/x-www-form-urlencoded": "application/x-www-form-urlencoded"
+                    }
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/InvoiceApi_SendToClient.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "InvoiceApi_Status": {
+            "main": "./lib/actions/InvoiceApi_Status.js",
+            "title": "Retrieve the status of the invoice",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/InvoiceApi_Status.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "InvoiceApi_Update": {
+            "main": "./lib/actions/InvoiceApi_Update.js",
+            "title": "Update an existing invoice",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                },
+                "body_content_type": {
+                    "viewClass": "SelectView",
+                    "label": "Body Content-Type",
+                    "required": true,
+                    "prompt": "Choose a body Content-Type.",
+                    "model": {
+                        "application/json": "application/json",
+                        "text/json": "text/json",
+                        "text/html": "text/html",
+                        "application/xml": "application/xml",
+                        "text/xml": "text/xml",
+                        "application/x-www-form-urlencoded": "application/x-www-form-urlencoded"
+                    }
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/InvoiceApi_Update.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "InvoiceApi_Uri": {
+            "main": "./lib/actions/InvoiceApi_Uri.js",
+            "title": "Return the unique url to the client's invoice",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/InvoiceApi_Uri.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "OrderApi_All": {
+            "main": "./lib/actions/OrderApi_All.js",
+            "title": "Return all orders for the account",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/OrderApi_All.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "OrderApi_ChangeShippingDetails": {
+            "main": "./lib/actions/OrderApi_ChangeShippingDetails.js",
+            "title": "Change order shipping details",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                },
+                "body_content_type": {
+                    "viewClass": "SelectView",
+                    "label": "Body Content-Type",
+                    "required": true,
+                    "prompt": "Choose a body Content-Type.",
+                    "model": {
+                        "application/json": "application/json",
+                        "text/json": "text/json",
+                        "text/html": "text/html",
+                        "application/xml": "application/xml",
+                        "text/xml": "text/xml",
+                        "application/x-www-form-urlencoded": "application/x-www-form-urlencoded"
+                    }
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/OrderApi_ChangeShippingDetails.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "OrderApi_ChangeStatus": {
+            "main": "./lib/actions/OrderApi_ChangeStatus.js",
+            "title": "Change order status",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                },
+                "body_content_type": {
+                    "viewClass": "SelectView",
+                    "label": "Body Content-Type",
+                    "required": true,
+                    "prompt": "Choose a body Content-Type.",
+                    "model": {
+                        "application/json": "application/json",
+                        "text/json": "text/json",
+                        "text/html": "text/html",
+                        "application/xml": "application/xml",
+                        "text/xml": "text/xml",
+                        "application/x-www-form-urlencoded": "application/x-www-form-urlencoded"
+                    }
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/OrderApi_ChangeStatus.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "OrderApi_Delete": {
+            "main": "./lib/actions/OrderApi_Delete.js",
+            "title": "Delete an existing order",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                },
+                "body_content_type": {
+                    "viewClass": "SelectView",
+                    "label": "Body Content-Type",
+                    "required": true,
+                    "prompt": "Choose a body Content-Type.",
+                    "model": {
+                        "application/json": "application/json",
+                        "text/json": "text/json",
+                        "text/html": "text/html",
+                        "application/xml": "application/xml",
+                        "text/xml": "text/xml",
+                        "application/x-www-form-urlencoded": "application/x-www-form-urlencoded"
+                    }
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/OrderApi_Delete.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "OrderApi_Details": {
+            "main": "./lib/actions/OrderApi_Details.js",
+            "title": "Return order details",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/OrderApi_Details.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "OrderApi_New": {
+            "main": "./lib/actions/OrderApi_New.js",
+            "title": "Create an order",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                },
+                "body_content_type": {
+                    "viewClass": "SelectView",
+                    "label": "Body Content-Type",
+                    "required": true,
+                    "prompt": "Choose a body Content-Type.",
+                    "model": {
+                        "application/json": "application/json",
+                        "text/json": "text/json",
+                        "text/html": "text/html",
+                        "application/xml": "application/xml",
+                        "text/xml": "text/xml",
+                        "application/x-www-form-urlencoded": "application/x-www-form-urlencoded"
+                    }
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/OrderApi_New.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "PaymentApi_Supported": {
+            "main": "./lib/actions/PaymentApi_Supported.js",
+            "title": "Return all supported payment gateways (no currencies means all are supported)",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/PaymentApi_Supported.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "ProductApi_All": {
+            "main": "./lib/actions/ProductApi_All.js",
+            "title": "Return all products for the account",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/ProductApi_All.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "ProductApi_Delete": {
+            "main": "./lib/actions/ProductApi_Delete.js",
+            "title": "Delete an existing product",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                },
+                "body_content_type": {
+                    "viewClass": "SelectView",
+                    "label": "Body Content-Type",
+                    "required": true,
+                    "prompt": "Choose a body Content-Type.",
+                    "model": {
+                        "application/json": "application/json",
+                        "text/json": "text/json",
+                        "text/html": "text/html",
+                        "application/xml": "application/xml",
+                        "text/xml": "text/xml",
+                        "application/x-www-form-urlencoded": "application/x-www-form-urlencoded"
+                    }
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/ProductApi_Delete.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "ProductApi_Details": {
+            "main": "./lib/actions/ProductApi_Details.js",
+            "title": "Return product details",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/ProductApi_Details.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "ProductApi_New": {
+            "main": "./lib/actions/ProductApi_New.js",
+            "title": "Create a product",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                },
+                "body_content_type": {
+                    "viewClass": "SelectView",
+                    "label": "Body Content-Type",
+                    "required": true,
+                    "prompt": "Choose a body Content-Type.",
+                    "model": {
+                        "application/json": "application/json",
+                        "text/json": "text/json",
+                        "text/html": "text/html",
+                        "application/xml": "application/xml",
+                        "text/xml": "text/xml",
+                        "application/x-www-form-urlencoded": "application/x-www-form-urlencoded"
+                    }
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/ProductApi_New.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "ProductApi_Update": {
+            "main": "./lib/actions/ProductApi_Update.js",
+            "title": "Update an existing product",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                },
+                "body_content_type": {
+                    "viewClass": "SelectView",
+                    "label": "Body Content-Type",
+                    "required": true,
+                    "prompt": "Choose a body Content-Type.",
+                    "model": {
+                        "application/json": "application/json",
+                        "text/json": "text/json",
+                        "text/html": "text/html",
+                        "application/xml": "application/xml",
+                        "text/xml": "text/xml",
+                        "application/x-www-form-urlencoded": "application/x-www-form-urlencoded"
+                    }
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/ProductApi_Update.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "TaxApi_All": {
+            "main": "./lib/actions/TaxApi_All.js",
+            "title": "Return all taxes for the account",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/TaxApi_All.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "TaxApi_Delete": {
+            "main": "./lib/actions/TaxApi_Delete.js",
+            "title": "Delete an existing tax",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                },
+                "body_content_type": {
+                    "viewClass": "SelectView",
+                    "label": "Body Content-Type",
+                    "required": true,
+                    "prompt": "Choose a body Content-Type.",
+                    "model": {
+                        "application/json": "application/json",
+                        "text/json": "text/json",
+                        "text/html": "text/html",
+                        "application/xml": "application/xml",
+                        "text/xml": "text/xml",
+                        "application/x-www-form-urlencoded": "application/x-www-form-urlencoded"
+                    }
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/TaxApi_Delete.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "TaxApi_New": {
+            "main": "./lib/actions/TaxApi_New.js",
+            "title": "Create a tax",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                },
+                "body_content_type": {
+                    "viewClass": "SelectView",
+                    "label": "Body Content-Type",
+                    "required": true,
+                    "prompt": "Choose a body Content-Type.",
+                    "model": {
+                        "application/json": "application/json",
+                        "text/json": "text/json",
+                        "text/html": "text/html",
+                        "application/xml": "application/xml",
+                        "text/xml": "text/xml",
+                        "application/x-www-form-urlencoded": "application/x-www-form-urlencoded"
+                    }
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/TaxApi_New.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "TaxApi_Update": {
+            "main": "./lib/actions/TaxApi_Update.js",
+            "title": "Update an existing tax",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                },
+                "body_content_type": {
+                    "viewClass": "SelectView",
+                    "label": "Body Content-Type",
+                    "required": true,
+                    "prompt": "Choose a body Content-Type.",
+                    "model": {
+                        "application/json": "application/json",
+                        "text/json": "text/json",
+                        "text/html": "text/html",
+                        "application/xml": "application/xml",
+                        "text/xml": "text/xml",
+                        "application/x-www-form-urlencoded": "application/x-www-form-urlencoded"
+                    }
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/TaxApi_Update.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "WorkTypeApi_All": {
+            "main": "./lib/actions/WorkTypeApi_All.js",
+            "title": "Return all work types for the account",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/WorkTypeApi_All.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "WorkTypeApi_Delete": {
+            "main": "./lib/actions/WorkTypeApi_Delete.js",
+            "title": "Delete an existing work type",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                },
+                "body_content_type": {
+                    "viewClass": "SelectView",
+                    "label": "Body Content-Type",
+                    "required": true,
+                    "prompt": "Choose a body Content-Type.",
+                    "model": {
+                        "application/json": "application/json",
+                        "text/json": "text/json",
+                        "text/html": "text/html",
+                        "application/xml": "application/xml",
+                        "text/xml": "text/xml",
+                        "application/x-www-form-urlencoded": "application/x-www-form-urlencoded"
+                    }
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/WorkTypeApi_Delete.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "WorkTypeApi_Details": {
+            "main": "./lib/actions/WorkTypeApi_Details.js",
+            "title": "Return work type details",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/WorkTypeApi_Details.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "WorkTypeApi_New": {
+            "main": "./lib/actions/WorkTypeApi_New.js",
+            "title": "Create a work type",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                },
+                "body_content_type": {
+                    "viewClass": "SelectView",
+                    "label": "Body Content-Type",
+                    "required": true,
+                    "prompt": "Choose a body Content-Type.",
+                    "model": {
+                        "application/json": "application/json",
+                        "text/json": "text/json",
+                        "text/html": "text/html",
+                        "application/xml": "application/xml",
+                        "text/xml": "text/xml",
+                        "application/x-www-form-urlencoded": "application/x-www-form-urlencoded"
+                    }
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/WorkTypeApi_New.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "WorkTypeApi_Search": {
+            "main": "./lib/actions/WorkTypeApi_Search.js",
+            "title": "Return all work types for the account that match the query param",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/WorkTypeApi_Search.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "WorkTypeApi_Update": {
+            "main": "./lib/actions/WorkTypeApi_Update.js",
+            "title": "Update an existing work type",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                },
+                "body_content_type": {
+                    "viewClass": "SelectView",
+                    "label": "Body Content-Type",
+                    "required": true,
+                    "prompt": "Choose a body Content-Type.",
+                    "model": {
+                        "application/json": "application/json",
+                        "text/json": "text/json",
+                        "text/html": "text/html",
+                        "application/xml": "application/xml",
+                        "text/xml": "text/xml",
+                        "application/x-www-form-urlencoded": "application/x-www-form-urlencoded"
+                    }
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/WorkTypeApi_Update.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        }
+    }
+}

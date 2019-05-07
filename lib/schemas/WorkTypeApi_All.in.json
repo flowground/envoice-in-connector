@@ -1,0 +1,15 @@
+{
+    "type": "object",
+    "properties": {
+        "x_auth_key": {
+            "required": true,
+            "type": "string",
+            "default": "[authentication key]"
+        },
+        "x_auth_secret": {
+            "required": true,
+            "type": "string",
+            "default": "[authentication secret]"
+        }
+    }
+}

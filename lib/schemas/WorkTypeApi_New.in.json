@@ -1,0 +1,24 @@
+{
+    "type": "object",
+    "properties": {
+        "requestBody": {
+            "properties": {
+                "Title": {
+                    "description": "Indicates the title of of the work type (Logo design, development...)",
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "x_auth_key": {
+            "required": true,
+            "type": "string",
+            "default": "[authentication key]"
+        },
+        "x_auth_secret": {
+            "required": true,
+            "type": "string",
+            "default": "[authentication secret]"
+        }
+    }
+}

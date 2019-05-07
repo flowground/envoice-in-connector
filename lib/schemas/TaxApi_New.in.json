@@ -1,0 +1,29 @@
+{
+    "type": "object",
+    "properties": {
+        "requestBody": {
+            "properties": {
+                "Name": {
+                    "description": "Name of the task",
+                    "type": "string"
+                },
+                "Percentage": {
+                    "description": "Task percentage. Ex: 18%",
+                    "format": "double",
+                    "type": "number"
+                }
+            },
+            "type": "object"
+        },
+        "x_auth_key": {
+            "required": true,
+            "type": "string",
+            "default": "[authentication key]"
+        },
+        "x_auth_secret": {
+            "required": true,
+            "type": "string",
+            "default": "[authentication secret]"
+        }
+    }
+}

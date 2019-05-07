@@ -1,0 +1,25 @@
+{
+    "type": "object",
+    "properties": {
+        "queryOptions_page": {
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+        },
+        "queryOptions_pageSize": {
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+        },
+        "x_auth_key": {
+            "required": true,
+            "type": "string",
+            "default": "[authentication key]"
+        },
+        "x_auth_secret": {
+            "required": true,
+            "type": "string",
+            "default": "[authentication secret]"
+        }
+    }
+}

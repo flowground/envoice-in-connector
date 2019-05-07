@@ -1,0 +1,72 @@
+{
+    "type": "object",
+    "properties": {
+        "requestBody": {
+            "properties": {
+                "AdditionalEmails": {
+                    "description": "Client additional emails contact for CC",
+                    "items": {
+                        "properties": {
+                            "Email": {
+                                "description": "CC",
+                                "type": "string"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    "type": "array"
+                },
+                "Address": {
+                    "description": "Client business address",
+                    "type": "string"
+                },
+                "ClientCountryId": {
+                    "description": "Indicates the country where the clients is from",
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "ClientCurrencyId": {
+                    "description": "Indicates the default system currency used by the user for the client",
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "CompanyRegistrationNumber": {
+                    "description": "Client's Company Registration Number",
+                    "type": "string"
+                },
+                "Email": {
+                    "description": "Client email",
+                    "type": "string"
+                },
+                "Name": {
+                    "description": "Name of the client",
+                    "type": "string"
+                },
+                "PhoneNumber": {
+                    "description": "Client phone numer",
+                    "type": "string"
+                },
+                "UiLanguageId": {
+                    "description": "Hold a value of the language in which the invoice will be sent",
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "Vat": {
+                    "description": "Client's VAT number",
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "x_auth_key": {
+            "required": true,
+            "type": "string",
+            "default": "[authentication key]"
+        },
+        "x_auth_secret": {
+            "required": true,
+            "type": "string",
+            "default": "[authentication secret]"
+        }
+    }
+}

@@ -1,0 +1,36 @@
+{
+    "type": "object",
+    "properties": {
+        "requestBody": {
+            "properties": {
+                "Id": {
+                    "description": "Invoice Id",
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "Status": {
+                    "description": "New status of the invoice",
+                    "enum": [
+                        "Draft",
+                        "Paid",
+                        "Unpaid",
+                        "Overdue",
+                        "Void"
+                    ],
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "x_auth_key": {
+            "required": true,
+            "type": "string",
+            "default": "[authentication key]"
+        },
+        "x_auth_secret": {
+            "required": true,
+            "type": "string",
+            "default": "[authentication secret]"
+        }
+    }
+}

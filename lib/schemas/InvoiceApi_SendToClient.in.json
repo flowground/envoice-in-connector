@@ -1,0 +1,34 @@
+{
+    "type": "object",
+    "properties": {
+        "requestBody": {
+            "properties": {
+                "Id": {
+                    "description": "Id of the invoice",
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "InvoiceId": {
+                    "description": "Id of the invoice",
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "Message": {
+                    "description": "Message to be embedded in the email",
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "x_auth_key": {
+            "required": true,
+            "type": "string",
+            "default": "[authentication key]"
+        },
+        "x_auth_secret": {
+            "required": true,
+            "type": "string",
+            "default": "[authentication secret]"
+        }
+    }
+}

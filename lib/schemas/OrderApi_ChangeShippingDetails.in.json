@@ -1,0 +1,46 @@
+{
+    "type": "object",
+    "properties": {
+        "orderId": {
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+        },
+        "requestBody": {
+            "properties": {
+                "Address": {
+                    "description": "Client street and number",
+                    "type": "string"
+                },
+                "CountryId": {
+                    "description": "Client country id",
+                    "format": "int32",
+                    "type": "integer"
+                },
+                "Email": {
+                    "description": "Client email",
+                    "type": "string"
+                },
+                "Name": {
+                    "description": "Client name",
+                    "type": "string"
+                },
+                "PhoneNumber": {
+                    "description": "Client phone number",
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "x_auth_key": {
+            "required": true,
+            "type": "string",
+            "default": "[authentication key]"
+        },
+        "x_auth_secret": {
+            "required": true,
+            "type": "string",
+            "default": "[authentication secret]"
+        }
+    }
+}
